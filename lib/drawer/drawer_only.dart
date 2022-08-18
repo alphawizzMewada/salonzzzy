@@ -11,40 +11,30 @@ import 'package:share/share.dart';
 
 class DrawerOnly extends StatelessWidget {
 
-
   String? name;
   DrawerOnly(this.name);
 
   bool logoutvisible = false;
 
-
-
   @override
   Widget build (BuildContext ctxt) {
     PreferenceUtils.init();
-    print("drawername:$name");
-
+    // print("drawername:$name");
 
     if(name == null && name == ""){
       name = "User";
     }
 
     if(PreferenceUtils.getlogin(AppConstant.isLoggedIn) == true){
-
       logoutvisible = true;
-
 
     }else{
       logoutvisible = false;
     }
     return new Drawer(
 
-
         //   enableOpenDragGesture: true,
         // dragStartBehavior:,
-
-
-
 /*        child: new ListView(
           children: <Widget>[
             new DrawerHeader(
@@ -71,12 +61,8 @@ class DrawerOnly extends StatelessWidget {
             ),
           ],
         )*/
-
         child: ListView(
-
-
           children: <Widget>[
-
             Container(
               padding: EdgeInsets.only(left: 0.0, top: 10.0),
               color: Colors.white,
@@ -102,36 +88,21 @@ class DrawerOnly extends StatelessWidget {
                 )
             ),
             Container(
-
                 alignment: Alignment.centerLeft,
                 margin: EdgeInsets.only(left: 20.0, top: 10.0),
-
                 child: ListTile(
-
-
-
                   title: Text(
-
                     'Top Offers',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
                         fontFamily: 'Montserrat'),
-
-
-
                   ),
                   onTap: () {
-
                     Navigator.of(ctxt).push(MaterialPageRoute(builder: (context) => new TopOffers(-1,null,null,null,null,null,null,null,null,null)));
                   },
-
                 )
-
-
-
-
             ),
    /*         Container(
                 alignment: Alignment.centerLeft,
@@ -189,7 +160,6 @@ class DrawerOnly extends StatelessWidget {
 
                         Navigator.of(ctxt).push(MaterialPageRoute(builder: (context) => new PrivacyPolicy()));
                       },
-
                 )
             ),
 
@@ -209,9 +179,9 @@ class DrawerOnly extends StatelessWidget {
 
                   onTap: () {
                       Navigator.pop(ctxt);
-                      Share.share(
-                            'the barber app link');
-
+                      var str = "$appName\n\n${"You can find our app from below url '\n\n Android:'\n "}$androidLink$packageName\n\n ${"iOS:"}\n$iosLink";
+                      Share.share(str);
+                      // Share.share('the barber app link');
                   },
                 )
             ),

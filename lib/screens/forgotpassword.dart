@@ -78,185 +78,184 @@ class _ForgotPassword extends State<ForgotPassword> {
             backgroundColor: Colors.white,
             elevation: 0.0,
           ),
-          body: Form(
-              key: _formKey,
-              child: Container(
-                width: widthS,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      kIsWeb?Container(
-                        child: new BackdropFilter(
-                          filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                          child: new Container(
-                            decoration:
-                            new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+          body: SingleChildScrollView(
+            child: Form(
+                key: _formKey,
+                child: Container(
+                  width: widthS,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        kIsWeb?Container(
+                          child: new BackdropFilter(
+                            filter: new ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                            child: new Container(
+                              decoration:
+                              new BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                            ),
                           ),
-                        ),
-                        decoration: new BoxDecoration(
-                          image: new DecorationImage(
-                            image: new ExactAssetImage('images/loginbg.png'),
-                            fit: BoxFit.cover,
+                          decoration: new BoxDecoration(
+                            image: new DecorationImage(
+                              image: new ExactAssetImage('images/loginbg.png'),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                      ):SizedBox(),
-                      Container(
-                        width: width,
-                        color: Colors.white,
-                        child: Column(children: <Widget>[
-                          Container(
-                            child: Container(
-                              margin: const EdgeInsets.only(top: 50.0, left: 0.0),
-                              alignment: FractionalOffset.center,
-                              child: Image.asset(
-                                "images/forgotpassword.png",
-                                width: 100,
-                                height: 100,
-                                alignment: Alignment.center,
+                        ):SizedBox(),
+                        Container(
+                          width: width,
+                          color: Colors.white,
+                          child: Column(children: <Widget>[
+                            Container(
+                              child: Container(
+                                margin: const EdgeInsets.only(top: 50.0, left: 0.0),
+                                alignment: FractionalOffset.center,
+                                child: Image.asset(
+                                  "images/forgotpassword.png",
+                                  width: 100,
+                                  height: 100,
+                                  alignment: Alignment.center,
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                              margin: const EdgeInsets.only(top: 70.0, left: 0.0),
-                              alignment: FractionalOffset.center,
-                              child: Text(
-                                'Forgot Password !',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Montserrat'),
-                              )),
-                          Container(
-                              margin: const EdgeInsets.only(top: 2.0, left: 0.0),
-                              alignment: FractionalOffset.center,
-                              child: Text(
-                                'Don\'t worry, we will find your account',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w300,
-                                    fontFamily: 'Montserrat'),
-                              )),
-                          Padding(
-                            padding:
-                            const EdgeInsets.only(top: 50, left: 40, right: 40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    "Email Id",
-                                    style: TextStyle(
-                                        color: const Color(0xFF999999),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'Montserrat'),
-                                  ),
-                                ),
-                                TextFormField(
-                                  keyboardType: TextInputType.emailAddress,
-                                  autofocus: false,
-                                  focusNode: _emailFocusNode,
-                                  validator: (email) =>
-                                  EmailValidator.validate(email!)
-                                      ? null
-                                      : "Invalid email address",
-                                  onSaved: (email) => _email = email,
-                                  onFieldSubmitted: (_) {},
+                            Container(
+                                margin: const EdgeInsets.only(top: 70.0, left: 0.0),
+                                alignment: FractionalOffset.center,
+                                child: Text(
+                                  'Forgot Password !',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 14.0,
                                       color: Colors.black,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Montserrat'),
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: const Color(0xFFf1f1f1),
-                                    hintText: 'Enter your email id',
-                                    contentPadding: const EdgeInsets.only(
-                                        left: 14.0, bottom: 8.0, top: 8.0),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: const Color(0xFFf1f1f1)),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide:
-                                      BorderSide(color: const Color(0xFFf1f1f1)),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                MaterialButton(
-                                  shape: new RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(5.0)),
-                                  minWidth: 300,
-                                  height: 40,
-                                  color: Color(AppConstant.pinkcolor),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      _formKey.currentState!.save();
-
-                                      AppConstant.CheckNetwork().whenComplete(
-                                              () => callApiForForgotpassword(_email));
-
-
-
-                                    }
-                                  },
-                                  child: Text(
-                                    "Send me OTP",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                )),
+                            Container(
+                                margin: const EdgeInsets.only(top: 2.0, left: 0.0),
+                                alignment: FractionalOffset.center,
+                                child: Text(
+                                  'Don\'t worry, we will find your account',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
                                       fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      fontFamily: 'Montserrat',
+                                      fontWeight: FontWeight.w300,
+                                      fontFamily: 'Montserrat'),
+                                )),
+                            Padding(
+                              padding:
+                              const EdgeInsets.only(top: 50, left: 40, right: 40),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      "Email Id",
+                                      style: TextStyle(
+                                          color: const Color(0xFF999999),
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          fontFamily: 'Montserrat'),
                                     ),
                                   ),
-                                )
-                              ],
+                                  TextFormField(
+                                    keyboardType: TextInputType.emailAddress,
+                                    autofocus: false,
+                                    focusNode: _emailFocusNode,
+                                    validator: (email) =>
+                                    EmailValidator.validate(email!)
+                                        ? null
+                                        : "Invalid email address",
+                                    onSaved: (email) => _email = email,
+                                    onFieldSubmitted: (_) {},
+                                    style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Montserrat'),
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: const Color(0xFFf1f1f1),
+                                      hintText: 'Enter your email id',
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 14.0, bottom: 8.0, top: 8.0),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: const Color(0xFFf1f1f1)),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                        BorderSide(color: const Color(0xFFf1f1f1)),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  MaterialButton(
+                                    shape: new RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.circular(5.0)),
+                                    minWidth: 300,
+                                    height: 40,
+                                    color: Color(AppConstant.pinkcolor),
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+
+                                        AppConstant.CheckNetwork().whenComplete(
+                                                () => callApiForForgotpassword(_email));
+                                      }
+                                    },
+                                    child: Text(
+                                      "Send me OTP",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Montserrat',
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
+                  Container(
+                          margin: const EdgeInsets.only(bottom: 2, top: 10),
+                          alignment: FractionalOffset.bottomCenter,
+                          child: Text(
+                            "Please check your email.",
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Montserrat'),
                           ),
-                Container(
-                        margin: const EdgeInsets.only(bottom: 2, top: 10),
-                        alignment: FractionalOffset.bottomCenter,
-                        child: Text(
-                          "Please check your email.",
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Montserrat'),
+                  ),
+                  Container(
+                          margin: const EdgeInsets.only(bottom: 8),
+                          alignment: FractionalOffset.bottomCenter,
+                          child: Text(
+                            "we will send you password on your mail.",
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: 'Montserrat'),
+                          ),
+                  )
+                ]),
                         ),
-                ),
-                Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        alignment: FractionalOffset.bottomCenter,
-                        child: Text(
-                          "we will send you password on your mail.",
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Montserrat'),
-                        ),
-                )
-              ]),
-                      ),
-                    ],
-                  )))),
+                      ],
+                    ))),
+          )),
     );
   }
 
@@ -271,7 +270,6 @@ class _ForgotPassword extends State<ForgotPassword> {
         if (response.success = true) {
           print("sucess");
           toastMessage(response.msg!);
-
           PreferenceUtils.setString(
               AppConstant.userid, response.data!.id.toString());
           PreferenceUtils.setString(AppConstant.username, response.data!.name!);
@@ -286,10 +284,12 @@ class _ForgotPassword extends State<ForgotPassword> {
           PreferenceUtils.setString(
               AppConstant.imagePath, response.data!.imagePath!);
 
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => LoginScreen(2)),
           );
+        } else{
+          toastMessage(response.msg!);
         }
       });
     }).catchError((Object obj) {
@@ -314,7 +314,6 @@ class _ForgotPassword extends State<ForgotPassword> {
             print("code:$responsecode");
             print("msg:$msg");
           }
-
           break;
         default:
       }

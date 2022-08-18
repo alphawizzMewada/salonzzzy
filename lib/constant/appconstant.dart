@@ -22,6 +22,14 @@ const fontRegular = 'Regular';
 const fontMedium = 'Medium';
 const fontSemibold = 'Semibold';
 const fontBold = 'Bold';
+
+final String appName = 'Beauty Salon';
+final String packageName = 'com.solanzy.user';
+final String androidLink = 'https://play.google.com/store/apps/details?id=';
+final String iosPackage = 'com.solanzy.user';
+final String iosLink = 'your ios link here';
+final String appStoreId = '123456789';
+
 class AppConstant {
   static final String oneSignalAppKey = "29561882-aa25-43ef-b277-83a677b09524";
 

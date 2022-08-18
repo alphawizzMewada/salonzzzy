@@ -427,7 +427,6 @@ class _LoginScreen extends State<LoginScreen> {
           } else if (responsecode == 422) {
             print("Invalid Data");
           }
-
           break;
         default:
       }
@@ -445,8 +444,7 @@ class _LoginScreen extends State<LoginScreen> {
           if (response.success = true) {
             PreferenceUtils.setString(
                 AppConstant.username, response.data!.name!);
-            print(
-                "profileNameLogin:${PreferenceUtils.getString(AppConstant.username)}");
+            print("profileNameLogin:${PreferenceUtils.getString(AppConstant.username)}");
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => BottomBar(1)),

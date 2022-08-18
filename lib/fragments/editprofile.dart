@@ -38,6 +38,9 @@ class _EditProfile extends State<EditProfile> {
   ShowProfile? showProfile1;
   String? _selectedCountryCode;
   bool _loading = false;
+  late TextEditingController nameC;
+  late TextEditingController emailC;
+  late TextEditingController mobileC;
   // List<String> _countryCodes = [' +91', ' +23',' +8'];
 
   // ProgressDialog pr;
@@ -51,6 +54,9 @@ class _EditProfile extends State<EditProfile> {
 
       showProfile1 = widget.showProfile;
       addressdataList = widget.showProfile!.address;
+      nameC = TextEditingController(text: widget.showProfile!.name);
+      emailC = TextEditingController(text: widget.showProfile!.email);
+      mobileC = TextEditingController(text: widget.showProfile!.phone);
 
       // int addlength = addressdataList.length;
       // print("addlength:$addlength");
@@ -96,14 +102,17 @@ class _EditProfile extends State<EditProfile> {
     });
   }
 
-  void callApiForEditProfile(String imageB64) {
+  void callApiForEditProfile(String imageB64, String name, String email, String phone) {
     print("imageB64:$imageB64");
+    print("NAME:$name");
+    print("EMIAL:$email");
+    print("PHONE:$phone");
     setState(() {
       _loading = true;
     });
     RestClient(Retro_Api().Dio_Data())
         .editprofile(
-            imageB64, _email, _phoneno, _username, _selectedCountryCode)
+            imageB64, email, phone, name, _selectedCountryCode)
         .then((response) {
       setState(() {
         _loading = false;
@@ -328,7 +337,6 @@ class _EditProfile extends State<EditProfile> {
                                 //       shrinkWrap: true,
                                 //       // physics: NeverScrollableScrollPhysics(),
                                 //       children: <Widget>[
-
                                 Container(
                                   margin: EdgeInsets.only(left: 10, right: 10, top: 10),
                                   height: 100,
@@ -498,7 +506,8 @@ class _EditProfile extends State<EditProfile> {
                                   margin: EdgeInsets.only(left: 10, top: 10, right: 10),
                                   child: TextFormField(
                                     autofocus: false,
-                                    initialValue: showProfile1!.name,
+                                    // initialValue: showProfile1!.name,
+                                    controller: nameC,
                                     keyboardType: TextInputType.text,
                                     textInputAction: TextInputAction.next,
 
@@ -512,7 +521,7 @@ class _EditProfile extends State<EditProfile> {
                                         return null;
                                     },
 
-                                    onSaved: (name) => _username = name,
+                                    onSaved: (name) => nameC.text = name.toString(),
                                     onFieldSubmitted: (_) {
                                       fieldFocusChange(
                                           context, _usernameFocusNode, _emailFocusNode);
@@ -559,16 +568,16 @@ class _EditProfile extends State<EditProfile> {
                                   margin: EdgeInsets.only(left: 10, top: 10, right: 10),
                                   child: TextFormField(
                                     autofocus: false,
-                                    initialValue: showProfile1!.email,
+                                    // initialValue: showProfile1!.email,
+                                    controller: emailC,
                                     keyboardType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.next,
-
                                     focusNode: _emailFocusNode,
                                     validator: (email) =>
                                         EmailValidator.validate(email!)
                                             ? null
                                             : "Invalid email address",
-                                    onSaved: (email) => _email = email,
+                                    onSaved: (email) => emailC.text = email.toString(),
                                     onFieldSubmitted: (_) {
                                       fieldFocusChange(
                                           context, _emailFocusNode, _phoneFocusNode);
@@ -616,12 +625,11 @@ class _EditProfile extends State<EditProfile> {
                                   height: 45,
                                   margin: EdgeInsets.only(left: 10, top: 10, right: 10),
                                   child: TextFormField(
-                                    initialValue: showProfile1!.phone,
+                                    // initialValue: showProfile1!.phone,
+                                    controller: mobileC,
                                     keyboardType: TextInputType.number,
                                     textInputAction: TextInputAction.done,
-
                                     focusNode: _phoneFocusNode,
-
                                     validator: (phone) {
                                       Pattern pattern = r'^[0-9]*$';
                                       RegExp regex = new RegExp(pattern as String);
@@ -631,7 +639,7 @@ class _EditProfile extends State<EditProfile> {
                                         return null;
                                     },
 
-                                    onSaved: (phone) => _phoneno = phone,
+                                    onSaved: (phone) => mobileC.text = phone.toString(),
 
                                     // onSubmitted: (_) => FocusScope.of(context).nextFocus(),
                                     style: TextStyle(
@@ -792,17 +800,22 @@ class _EditProfile extends State<EditProfile> {
                                         _formKey.currentState!.save();
                                         if (_image == null) {
                                           String imageB64 = "";
+                                          String name = nameC.text.toString();
+                                          String email = emailC.text.toString();
+                                          String phone = mobileC.text.toString();
                                           print("imageB64123:$imageB64");
 
                                           AppConstant.CheckNetwork().whenComplete(
-                                              () => callApiForEditProfile(imageB64));
+                                              () => callApiForEditProfile(imageB64, name, email, phone));
                                         } else {
                                           List<int> imageBytes =
                                               _image!.readAsBytesSync();
                                           String imageB64 = base64Encode(imageBytes);
-
+                                          String name = nameC.text.toString();
+                                          String email = emailC.text.toString();
+                                          String phone = mobileC.text.toString();
                                           AppConstant.CheckNetwork().whenComplete(
-                                              () => callApiForEditProfile(imageB64));
+                                              () => callApiForEditProfile(imageB64, name, email, phone));
                                         }
                                       }
                                     },

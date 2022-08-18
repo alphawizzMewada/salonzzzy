@@ -466,7 +466,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                         .checkConnectivity());
                                     if (connectivityResult ==
                                         ConnectivityResult.mobile) {
-                                      if(_password != null && _password.toString().length == 8){
+                                      if(_password != null && _password.toString().length > 8){
                                         CallRegisterapi(
                                             _username,
                                             _email,
@@ -480,7 +480,7 @@ class _RegisterScreen extends State<RegisterScreen> {
 
                                     } else if (connectivityResult ==
                                         ConnectivityResult.wifi) {
-                                      if(_password != null && _password.toString().length == 8){
+                                      if(_password != null && _password.toString().length > 8){
                                         CallRegisterapi(
                                             _username,
                                             _email,

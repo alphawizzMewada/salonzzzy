@@ -56,7 +56,7 @@ class _Profile extends State<Profile> {
 
   // bool nocanceldatavisible = false;
   // bool cancellistvisible = false;
-  //
+
   bool nocompletedatavisible = false;
   bool completelistvisible = false;
   bool _loading = false;
@@ -137,7 +137,10 @@ class _Profile extends State<Profile> {
                 AppConstant.username, response.data!.name!);
 
             profilename = showProfile!.name;
-            imageurl = showProfile!.imagePath! + showProfile!.image!;
+            setState(() {
+              imageurl = showProfile!.imagePath! + showProfile!.image!;
+            });
+
             print("profileimage:$imageurl");
           } else {
             AppConstant.toastMessage("No Data");
@@ -503,10 +506,8 @@ class _Profile extends State<Profile> {
     }
     return WillPopScope(
       onWillPop: _onWillPop,
-
       // color: Colors.white,
       // debugShowCheckedModeBanner: false,
-
       child: ModalProgressHUD(
         inAsyncCall: _loading,
         opacity: 1.0,
@@ -555,7 +556,7 @@ class _Profile extends State<Profile> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(left: 20),
-                                            child: imageurl == null ? CachedNetworkImage(
+                                            child: imageurl != null ? CachedNetworkImage(
                                               imageUrl:imageurl.toString(),
                                               // imageUrl: imageurl,
                                               width: 60,
